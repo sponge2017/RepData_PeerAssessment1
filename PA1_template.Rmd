@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,fig.path = "figure/")
+knitr::opts_chunk$set(echo = TRUE,dev="png", fig.path="figure/")
 ```
 ```{r message=FALSE}
 library(dplyr)
@@ -48,7 +48,7 @@ Daily<-ds %>% group_by(date) %>% summarize(TotalSteps=sum(steps))
 Daily
 ```
 2. Make a histogram of the total number of steps taken each day:
-```{r histogram of total numbers of steps per day}
+```{r histogram_total_steps_per_day}
 hist(Daily$TotalSteps, col="lightblue", xlab="Steps", main="Histogram of Total Steps per Day")
 ```
 
@@ -61,7 +61,7 @@ So, the **mean** of daily steps taken is `r format(mean_steps, scientifice=FALSE
 
 ## What is the average daily activity pattern?
 1. Make a time series plot (i.e.type="l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
-```{r average steps by interval}
+```{r average_steps_by_interval}
 TimeSeries<-ds %>% group_by(interval) %>% summarize(AvgSteps=mean(steps, na.rm=T))
 plot(TimeSeries$interval, TimeSeries$AvgSteps, type="l", main="Average Steps by Intervals", xlab="5-minute Intervals", ylab="Average Steps Taken", col="blue")
 ```
@@ -93,7 +93,7 @@ ds_filled$steps[is.na(ds_filled$steps)]<-ds_filled$AvgSteps[is.na(ds_filled$step
 ```
 
 4. Make a histogram of the total number of steps taken each day: 
-```{r histogram of total numbe of steps per day (NA filled in)}
+```{r histogram_of_total_steps_per_day_NA_filled}
 summary_filled<-group_by(ds_filled,date) %>% summarize(Steps_Total=sum(steps), Steps_Mean=mean(steps), Steps_Median=median(steps))
 hist(summary_filled$Steps_Total, main="Histogram of Total Steps per Day (NA filled in)", xlab="Steps", col="lightblue")
 ```
@@ -116,7 +116,7 @@ ds$DayType<-ifelse(weekdays(ds$date) %in% c("Saturday", "Sunday"), "weekend","we
 ```
 
 2. Make a panel plot containing a time series plot (i.e. type="l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekdays or weekend days (y-axis).
-```{r aggregate by interval and DayType}
+```{r aggregate_by_interval_and_DayType}
 result<-group_by(ds, DayType=as.factor(DayType), interval) %>% summarize(Steps_Mean=mean(steps, na.rm = T))
 g<-ggplot(result, aes(x=interval, y=Steps_Mean,color=DayType)) + geom_line() + facet_grid(DayType ~ .) +theme_bw()+theme(legend.position = "none")+xlab("Interval")+ylab("Mean of Steps")
 g

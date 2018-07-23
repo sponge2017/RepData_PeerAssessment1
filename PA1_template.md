@@ -120,7 +120,7 @@ Daily
 hist(Daily$TotalSteps, col="lightblue", xlab="Steps", main="Histogram of Total Steps per Day")
 ```
 
-![](figure/histogram of total numbers of steps per day-1.png)<!-- -->
+![](figure/histogram_total_steps_per_day-1.png)<!-- -->
 
 3. Calculate and report the mean and median of daily total steps taken:
 
@@ -138,7 +138,7 @@ TimeSeries<-ds %>% group_by(interval) %>% summarize(AvgSteps=mean(steps, na.rm=T
 plot(TimeSeries$interval, TimeSeries$AvgSteps, type="l", main="Average Steps by Intervals", xlab="5-minute Intervals", ylab="Average Steps Taken", col="blue")
 ```
 
-![](figure/average steps by interval-1.png)<!-- -->
+![](figure/average_steps_by_interval-1.png)<!-- -->
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -176,7 +176,7 @@ summary_filled<-group_by(ds_filled,date) %>% summarize(Steps_Total=sum(steps), S
 hist(summary_filled$Steps_Total, main="Histogram of Total Steps per Day (NA filled in)", xlab="Steps", col="lightblue")
 ```
 
-![](figure/histogram of total numbe of steps per day (NA filled in)-1.png)<!-- -->
+![](figure/histogram_of_total_steps_per_day_NA_filled-1.png)<!-- -->
 
 Calculate and report the mean and median total number of steps taken per day:
 
@@ -205,6 +205,6 @@ g<-ggplot(result, aes(x=interval, y=Steps_Mean,color=DayType)) + geom_line() + f
 g
 ```
 
-![](figure/aggregate by interval and DayType-1.png)<!-- -->
+![](figure/aggregate_by_interval_and_DayType-1.png)<!-- -->
 
 From the comparison of the weekday and weekend graphs, we can see, during the weekends, people are less active (less steps) during the eariler time(from 0 to 1000 intervals), and more active later (after 10000).
